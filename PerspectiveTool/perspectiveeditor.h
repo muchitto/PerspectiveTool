@@ -29,8 +29,6 @@ public:
     float zoom_level = 1;
     float zoom_level_change = 0.5;
 
-    int lines_per_point = 20;
-
     QVector<PerspectivePoint> perspective_points;
 
     QPointF camera_position = QPointF(100, 100);

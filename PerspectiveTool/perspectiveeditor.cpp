@@ -6,9 +6,9 @@ PerspectiveEditor::PerspectiveEditor(QWidget *parent) : QWidget(parent) {
 
     perspective_points.resize(5);
 
-    perspective_points[0].line_color = QColor(200, 50, 50, 150);
-    perspective_points[1].line_color = QColor(50, 200, 50, 150);
-    perspective_points[2].line_color = QColor(50, 50, 200, 150);
+    perspective_points[0].line_color = QColor(200, 50, 50);
+    perspective_points[1].line_color = QColor(50, 200, 50);
+    perspective_points[2].line_color = QColor(50, 50, 200);
 
     repaint();
 
@@ -89,6 +89,9 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     QPainter canvas_painter (&canvas_image);
 
+    canvas_painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+
+
     painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
     painter.setBrush(QBrush(QColor(120, 120, 120)));
@@ -140,16 +143,12 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
                 second_point = canvas_polygon[3];
             }
 
-            bool left = false;
-
             if(ppoint.x() < canvas_polygon[3].x() && ppoint.y() > canvas_polygon[3].y()) {
                 first_point = canvas_polygon[0];
                 second_point = canvas_polygon[2];
             } else if(ppoint.x() < canvas_polygon[0].x() && ppoint.y() > canvas_polygon[0].y()) {
                 first_point = canvas_polygon[0];
                 second_point = canvas_polygon[3];
-                left = true;
-
             }
 
             QPen box_line;
@@ -161,44 +160,30 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
 
             painter.drawLine(ppoint, first_point);
             painter.drawLine(ppoint, second_point);
-
-            canvas_painter.setPen(QPen(perspective_points[p].line_color));
-
-            QLineF first_point_line (ppoint, first_point);
-            QLineF second_point_line (ppoint, second_point);
-
-            int start_angle = first_point_line.angle();
-            int end_angle = second_point_line.angle();
-
-            if(first_point_line.angle() > second_point_line.angle()) {
-                start_angle = second_point_line.angle();
-                end_angle = first_point_line.angle();
-            }
-
-            int angle_difference = start_angle - end_angle;
-
-            int addition = qFabs(angle_difference / lines_per_point);
-
-            for(int a = start_angle; a < end_angle; a += addition) {
-                QLineF line (perspective_points[p].position, perspective_points[p].position + QPointF(100, 100));
-
-                line.setLength(10000);
-                line.setAngle(a);
-
-                canvas_painter.drawLine(line);
-            }
-        } else {
-            painter.setPen(QPen(perspective_points[p].line_color));
-
-            for(int l = 0; l < lines_per_point; l++) {
-                QLineF line (perspective_points[p].position, perspective_points[p].position + QPointF(100, 100));
-
-                line.setLength(10000);
-                line.setAngle(360 / lines_per_point * l);
-
-                canvas_painter.drawLine(line);
-            }
         }
+
+        QColor line_color = perspective_points[p].line_color;
+
+        line_color.setAlpha(50);
+
+        canvas_painter.setPen(QPen(line_color));
+
+        for(int l = 0; l < perspective_points[p].number_of_lines; l++) {
+            QLineF line (perspective_points[p].position, perspective_points[p].position + QPointF(100, 100));
+
+            qDebug() << 360 / (float) perspective_points[p].number_of_lines;
+
+            line.setLength(10000);
+            line.setAngle(360 / (float) perspective_points[p].number_of_lines * l);
+
+            canvas_painter.drawLine(line);
+        }
+    }
+
+    painter.drawImage(coord_offset.x(), coord_offset.y(), canvas_image);
+
+    for(int p = 0; p < perspective_point_count; p++) {
+        QPointF ppoint = coord_offset + perspective_points[p].position;
 
         painter.setBrush(QBrush(QColor(200, 200, 200)));
         painter.setPen(QPen(Qt::black));
@@ -206,7 +191,8 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
         painter.drawText(ppoint - QPointF(3, -4), QString::number(p + 1));
     }
 
-    painter.drawImage(coord_offset.x(), coord_offset.y(), canvas_image);
+    foreach(PerspectivePoint point, perspective_points) {
+    }
 
     painter.setBrush(QBrush(Qt::transparent));
     painter.setPen(QPen(QColor(200, 200, 200)));

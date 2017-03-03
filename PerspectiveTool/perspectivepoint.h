@@ -14,7 +14,7 @@ public:
     QVector<QLineF> lines;
     QColor line_color;
 
-    int number_of_lines = 20;
+    int number_of_lines = 80;
 
     void resetLines();
     void createLinesFromTwoPoints(QPointF first_point, QPointF second_point);
