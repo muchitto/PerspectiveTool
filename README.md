@@ -10,6 +10,8 @@ To build this software, a QT version 5.8 is required (I haven't tested this with
 
 ### Usage
 
+You can compile it or just download it for your platform from Builds/ -folder.
+
 The software is pretty straight forward. You can move the points by clicking and dragging. You move the view by holding space and dragging. When you are satisfied with the grid, just ctrl + C to copy it to the clipboard and paste it to your favorite drawing software.
 
 ### Credits
