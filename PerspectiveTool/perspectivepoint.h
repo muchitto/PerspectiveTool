@@ -6,6 +6,7 @@
 #include <QLineF>
 #include <QColor>
 #include <QRectF>
+#include <QDebug>
 
 class PerspectivePoint
 {
@@ -16,6 +17,8 @@ public:
     QColor line_color;
 
     int number_of_lines = 120;
+
+    int opacity = 50;
 
     void resetLines();
     void createLinesFromTwoPoints(QPointF first_point, QPointF second_point);

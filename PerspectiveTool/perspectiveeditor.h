@@ -44,9 +44,18 @@ public:
 
     bool antialiasing = false;
 
+    void selectPerspectivePoint();
+
 public slots:
     void perspectivePointsSelected (int perspective);
     void setAntialiasing(bool antialiasing);
+    void setCurrentOpacity(int opacity);
+    void setCurrentLines(int lines);
+
+signals:
+    void setOpacity(int opacity);
+    void setLines (int lines);
+    void perspectivePointActivationState(bool state);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

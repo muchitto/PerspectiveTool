@@ -10,6 +10,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->perspectiveSelectGroup, SIGNAL(buttonClicked(int)), ui->perspectiveEditor, SLOT(perspectivePointsSelected(int)));
     connect(ui->antialiasingCheckBox, SIGNAL(clicked(bool)), ui->perspectiveEditor, SLOT(setAntialiasing(bool)));
+
+    connect(ui->perspectiveEditor, SIGNAL(setLines(int)), ui->lineAmountSlider, SLOT(setValue(int)));
+    connect(ui->perspectiveEditor, SIGNAL(setOpacity(int)), ui->opacitySlider, SLOT(setValue(int)));
+
+    connect(ui->perspectiveEditor, SIGNAL(perspectivePointActivationState(bool)), ui->lineAmountSlider, SLOT(setEnabled(bool)));
+    connect(ui->perspectiveEditor, SIGNAL(perspectivePointActivationState(bool)), ui->opacitySlider, SLOT(setEnabled(bool)));
+
+    connect(ui->lineAmountSlider, SIGNAL(valueChanged(int)), ui->perspectiveEditor, SLOT(setCurrentLines(int)));
+    connect(ui->opacitySlider, SIGNAL(valueChanged(int)), ui->perspectiveEditor, SLOT(setCurrentOpacity(int)));
 }
 
 MainWindow::~MainWindow() {

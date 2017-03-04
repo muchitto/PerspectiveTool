@@ -13,8 +13,16 @@ bool PerspectivePoint::inHelperArea(QPointF point) {
 
 void PerspectivePoint::addLine() {
     number_of_lines += 4;
+
+    if(number_of_lines > 500)
+        number_of_lines = 500;
 }
 
 void PerspectivePoint::subtractLine() {
+
     number_of_lines -= 4;
+
+    if(number_of_lines < 0)
+        number_of_lines = 0;
+
 }

@@ -17,6 +17,13 @@ PerspectiveEditor::PerspectiveEditor(QWidget *parent) : QWidget(parent) {
     grabKeyboard();
 }
 
+void PerspectiveEditor::selectPerspectivePoint() {
+    emit setOpacity(perspective_points[perspective_point_activated].opacity);
+    emit setLines(perspective_points[perspective_point_activated].number_of_lines);
+
+    emit perspectivePointActivationState(true);
+}
+
 
 void PerspectiveEditor::perspectivePointsSelected (int perspective) {
     if(perspective == -2) {
@@ -32,6 +39,16 @@ void PerspectiveEditor::perspectivePointsSelected (int perspective) {
 
 void PerspectiveEditor::setAntialiasing(bool antialiasing) {
     this->antialiasing = antialiasing;
+    repaint();
+}
+
+void PerspectiveEditor::setCurrentOpacity(int opacity) {
+    perspective_points[perspective_point_activated].opacity = opacity;
+    repaint();
+}
+
+void PerspectiveEditor::setCurrentLines(int lines) {
+    perspective_points[perspective_point_activated].number_of_lines = lines;
     repaint();
 }
 
@@ -86,6 +103,9 @@ void PerspectiveEditor::mousePressEvent(QMouseEvent *event) {
             if(box.contains(event->x(), event->y())) {
                 perspective_point_move = p;
                 perspective_point_activated = p;
+
+                selectPerspectivePoint();
+
                 repaint();
                 break;
             }
@@ -212,10 +232,12 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
 
             QColor line_color = perspective_points[p].line_color;
 
+            int base_opacity = perspective_points[p].opacity;
+
             if(l % 2) {
-                line_color.setAlpha(50);
+                line_color.setAlpha(base_opacity);
             } else {
-                line_color.setAlpha(20);
+                line_color.setAlpha(base_opacity - 20);
             }
 
             canvas_painter.setPen(QPen(line_color));
