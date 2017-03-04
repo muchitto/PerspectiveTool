@@ -2,7 +2,7 @@
 
 ### Introduction
 
-I got fed up creating the perspective grids from scratch all the time and I couldn't find the Epics Carapace software (which this is obviously inspired by) anymore so I wrote this quick and dirty software just for that. You can make up to 3 point perspective grids (for now atleast).
+I got fed up with creating the perspective grids from scratch all the time and I couldn't find the Epics Carapace software (which this is obviously inspired by) anymore so I wrote this quick and dirty software just for that. You can make up to 3 point perspective grids (for now at least).
 
 ### Requirements
 
