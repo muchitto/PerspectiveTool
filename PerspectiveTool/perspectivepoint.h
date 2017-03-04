@@ -18,6 +18,8 @@ public:
 
     int number_of_lines = 120;
 
+    int center_removal = 20;
+
     int opacity = 50;
 
     void resetLines();

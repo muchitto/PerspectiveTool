@@ -20,6 +20,7 @@ PerspectiveEditor::PerspectiveEditor(QWidget *parent) : QWidget(parent) {
 void PerspectiveEditor::selectPerspectivePoint() {
     emit setOpacity(perspective_points[perspective_point_activated].opacity);
     emit setLines(perspective_points[perspective_point_activated].number_of_lines);
+    emit setCenterRemoval(perspective_points[perspective_point_activated].center_removal);
 
     emit perspectivePointActivationState(true);
 }
@@ -49,6 +50,11 @@ void PerspectiveEditor::setCurrentOpacity(int opacity) {
 
 void PerspectiveEditor::setCurrentLines(int lines) {
     perspective_points[perspective_point_activated].number_of_lines = lines;
+    repaint();
+}
+
+void PerspectiveEditor::setCurrentCenterRemoval(int center_removal) {
+    perspective_points[perspective_point_activated].center_removal = center_removal;
     repaint();
 }
 
@@ -244,6 +250,14 @@ void PerspectiveEditor::paintEvent(QPaintEvent *event) {
 
             line.setLength(10000);
             line.setAngle(360 / (float) perspective_points[p].number_of_lines * l);
+
+            if(perspective_points[p].center_removal > 0) {
+                QLineF new_line(line.p2(), line.p1());
+
+                new_line.setLength(new_line.length() - perspective_points[p].center_removal);
+
+                line = new_line;
+            }
 
             canvas_painter.drawLine(line);
         }

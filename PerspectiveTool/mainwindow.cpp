@@ -13,12 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->perspectiveEditor, SIGNAL(setLines(int)), ui->lineAmountSlider, SLOT(setValue(int)));
     connect(ui->perspectiveEditor, SIGNAL(setOpacity(int)), ui->opacitySlider, SLOT(setValue(int)));
+    connect(ui->perspectiveEditor, SIGNAL(setCenterRemoval(int)), ui->centerRemovalSlider, SLOT(setValue(int)));
 
     connect(ui->perspectiveEditor, SIGNAL(perspectivePointActivationState(bool)), ui->lineAmountSlider, SLOT(setEnabled(bool)));
     connect(ui->perspectiveEditor, SIGNAL(perspectivePointActivationState(bool)), ui->opacitySlider, SLOT(setEnabled(bool)));
+    connect(ui->perspectiveEditor, SIGNAL(perspectivePointActivationState(bool)), ui->centerRemovalSlider, SLOT(setEnabled(bool)));
 
     connect(ui->lineAmountSlider, SIGNAL(valueChanged(int)), ui->perspectiveEditor, SLOT(setCurrentLines(int)));
     connect(ui->opacitySlider, SIGNAL(valueChanged(int)), ui->perspectiveEditor, SLOT(setCurrentOpacity(int)));
+    connect(ui->centerRemovalSlider, SIGNAL(valueChanged(int)), ui->perspectiveEditor, SLOT(setCurrentCenterRemoval(int)));
 }
 
 MainWindow::~MainWindow() {

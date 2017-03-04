@@ -51,10 +51,13 @@ public slots:
     void setAntialiasing(bool antialiasing);
     void setCurrentOpacity(int opacity);
     void setCurrentLines(int lines);
+    void setCurrentCenterRemoval(int center_removal);
 
 signals:
     void setOpacity(int opacity);
     void setLines (int lines);
+    void setCenterRemoval (int center_removal);
+
     void perspectivePointActivationState(bool state);
 
 protected:
