@@ -25,6 +25,7 @@ public:
 
     int perspective_point_count = 1;
     int perspective_point_move = -1;
+    int perspective_point_activated = -1;
 
     float zoom_level = 1;
     float zoom_level_change = 0.5;
@@ -39,9 +40,13 @@ public:
 
     QImage canvas_image;
 
+    QPointF mouse;
+
+    bool antialiasing = false;
 
 public slots:
     void perspectivePointsSelected (int perspective);
+    void setAntialiasing(bool antialiasing);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

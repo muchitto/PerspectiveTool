@@ -22,6 +22,9 @@
         <property name="enabled">
          <bool>true</bool>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>1 Point</string>
         </property>
@@ -35,6 +38,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="twoPointRadio">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>2 Point</string>
         </property>
@@ -45,12 +51,22 @@
       </item>
       <item>
        <widget class="QRadioButton" name="threePointRadio">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>3 Point</string>
         </property>
         <attribute name="buttonGroup">
          <string notr="true">perspectiveSelectGroup</string>
         </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="antialiasingCheckBox">
+        <property name="text">
+         <string>Antialiasing</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -85,6 +101,15 @@
         <height>0</height>
        </size>
       </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -102,11 +127,16 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionCopy_to_clipboard"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -117,6 +147,14 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionCopy_to_clipboard">
+   <property name="text">
+    <string>Copy to clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
  </widget>
@@ -130,7 +168,24 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>507</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="perspectiveSelectGroup"/>
  </buttongroups>
