@@ -26,10 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
 mainwindow.cpp \
 perspectiveeditor.cpp \
-    perspectivepoint.cpp
+    perspectivepoint.cpp \
+    sizedialog.cpp
 
 HEADERS  += mainwindow.h \
 perspectiveeditor.h \
-    perspectivepoint.h
+    perspectivepoint.h \
+    sizedialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    sizedialog.ui

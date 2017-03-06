@@ -20,7 +20,7 @@ public:
 
     int center_removal = 20;
 
-    int opacity = 50;
+    int opacity = 200;
 
     void resetLines();
     void createLinesFromTwoPoints(QPointF first_point, QPointF second_point);

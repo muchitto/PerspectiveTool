@@ -22,30 +22,52 @@ public:
     explicit PerspectiveEditor(QWidget *parent = 0);
 
     bool camera_drag_mode = false;
+    bool camera_dragging = false;
 
     int perspective_point_count = 1;
     int perspective_point_move = -1;
     int perspective_point_activated = -1;
 
     float zoom_level = 1;
-    float zoom_level_change = 0.5;
+    float zoom_level_change = 0.25;
 
     QVector<PerspectivePoint> perspective_points;
 
     QPointF camera_position = QPointF(100, 100);
 
-    QRectF canvas = QRectF(0, 0, 640, 400);
+    QRectF canvas = QRectF(0, 0, 1280, 800);
 
     QLineF camera_drag_line;
 
     QImage canvas_image;
 
-    QPointF mouse;
+    QPointF mouse, mouse_view;
 
     bool antialiasing = false;
 
-    void selectPerspectivePoint();
+    void selectPerspectivePoint(int p);
 
+    QPointF convertToViewerCoords(QPointF point);
+    QPointF convertToRealCoords(QPointF point);
+    QPointF convertToRealCoords(QPointF point, QPointF offset);
+    QPointF convertToViewerCoords(QPointF point, QPointF offset);
+    QImage renderImage(int width, int height);
+
+    QImage scaled_image;
+
+    void startCameraDrag();
+    void endCameraDrag();
+    void updateCameraDrag();
+    QPointF zoomify(QPointF point);
+    QPointF dezoomify(QPointF point);
+    int dezoomify(int value);
+    int zoomify(int value);
+    void startCameraDragMode();
+    void endCameraDragMode();
+    QPointF getCurrentOffset();
+    void raiseZoomLevel();
+    void decreaseZoomLevel();
+    void reRenderCanvasImage();
 public slots:
     void perspectivePointsSelected (int perspective);
     void setAntialiasing(bool antialiasing);

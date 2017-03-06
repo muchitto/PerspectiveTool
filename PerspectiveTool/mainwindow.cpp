@@ -29,5 +29,17 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_actionCopy_to_clipboard_triggered() {
-    QApplication::clipboard()->setImage(ui->perspectiveEditor->canvas_image, QClipboard::Clipboard);
+   // ui->perspectiveEditor->renderImage();
+
+    QImage image = ui->perspectiveEditor->renderImage(ui->perspectiveEditor->canvas.width(), ui->perspectiveEditor->canvas.height());
+    QApplication::clipboard()->setImage(image, QClipboard::Clipboard);
+}
+
+void MainWindow::on_actionCopy_to_clipboard_with_size_triggered() {
+    SizeDialog dialog;
+
+    dialog.exec();
+
+    QImage image = ui->perspectiveEditor->renderImage(dialog.getCanvasSize().width(), dialog.getCanvasSize().height());
+    QApplication::clipboard()->setImage(image, QClipboard::Clipboard);
 }

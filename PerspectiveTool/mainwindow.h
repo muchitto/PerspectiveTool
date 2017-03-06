@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QClipboard>
 
+#include "sizedialog.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -20,6 +22,7 @@ public:
 private slots:
     void on_actionCopy_to_clipboard_triggered();
 
+    void on_actionCopy_to_clipboard_with_size_triggered();
 private:
     Ui::MainWindow *ui;
 
